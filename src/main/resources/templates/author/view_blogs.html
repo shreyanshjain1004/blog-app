@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head('My Blogs')">
+</head>
+<body style="background-color: beige;">
+	<div class="row">
+		<div class="col-md-3">			
+			<div th:replace="/author/base/side :: sidebar"class="col-md-3">
+				<div ></div>
+			</div>
+		</div>
+		<div class="col-md-9">							
+			<div class="row tm-row">
+                <article class="col-12 col-md-6 tm-post" th:each = "blog : ${blogs}">
+                    <hr class="tm-hr-primary">
+                    <a th:href="@{'/post/'+${blog.getId()}}" class="effect-lily tm-post-link tm-pt-60">
+                        <div style="height:300px;" class="tm-post-link-inner">
+                        	<img th:src="${blog.getImage() ne null} ? @{'/img/'+${blog.getImage()}} : @{'/img/img-01.jpg'}" alt="Image" class="img-fluid">                            
+                        </div>
+                        <h2 class="tm-pt-30 tm-color-primary tm-post-title" th:text=${blog.getTitle()}></h2>
+                    </a>                    
+                    <p class="tm-pt-30">
+                        There is a clickable image with beautiful hover effect and active title link for each post item. 
+                        Left side is a sticky menu bar. Right side is a blog content that will scroll up and down.
+                    </p>
+                    <form style="display:inline;" method="post" th:action="@{'/author/edit-blog/'+${blog.getId()}}">
+                    	<button class="btn btn-primary" type="submit">Edit Blog</button>
+                    </form>                    
+                    <a th:href="@{'/author/delete/'+${blog.getId()}}" class="btn btn-danger">Delete Blog</a>
+                    <div class="d-flex justify-content-between tm-pt-45">
+                        <span class="tm-color-primary" th:text="${blog.getAuthor().getFirstName()}+' ' +${blog.getAuthor().getLastName()}">ravel . Events</span>
+                        <span class="tm-color-primary" th:text="${#dates.format(blog.getCreationDate(), 'dd MMM yyyy')}"></span>
+                    </div>
+                    <hr>
+                </article>
+           </div>
+		</div>
+	</div>
+	<div class="row tm-row tm-mt-100 tm-mb-75">
+		 <div style="margin-left:200px" class="tm-paging-wrapper">
+            <span class="d-inline-block mr-3">Page</span>
+            <nav class="tm-paging-nav d-inline-block">
+                <ul>
+                    <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="tm-paging-item">
+                        <a th:href="@{'/author/view-blogs/' + ${i-1}}" class="mb-2 tm-btn tm-paging-link"><span th:text="${i}"></span></a>
+                    </li>                            
+                </ul>
+            </nav>
+        </div>   
+        <div style="margin-left:400px;" class="tm-prev-next-wrapper">
+            <a th:if="${currentPage != 0}" th:href="@{'/author/view-blogs/' + ${currentPage-1}}" class="mb-2 tm-btn tm-btn-primary tm-prev-next tm-mr-20">Prev</a>
+            <a th:if="${currentPage+1 != totalPages}" th:href="@{'/author/view-blogs/' + ${currentPage+1}}" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
+        </div>             
+    </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head th:replace="/fragments/head :: head('Blog')"></head>
+
+<body>
+	<header th:replace="/fragments/head :: header"></header>
+    <div class="container-fluid">
+        <main class="tm-main">
+            <!-- Search form -->
+            <div class="row tm-row">
+                <div class="col-12">
+                    <form method="GET" class="form-inline tm-mb-80 tm-search-form">                
+                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
+                        <button class="tm-search-button" type="submit">
+                            <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                        </button>                                
+                    </form>
+                </div>                
+            </div>            
+            <div class="row tm-row">
+                <article class="col-12 col-md-6 tm-post" th:each = "blog : ${blogs}">
+                    <hr class="tm-hr-primary">
+                    <a th:href="@{'/post/'+${blog.getId()}}" class="effect-lily tm-post-link tm-pt-60">
+                        <div style="height:300px;" class="tm-post-link-inner">
+                        	<img th:src="${blog.getImage() ne null} ? @{'img/'+${blog.getImage()}} : @{'img/img-01.jpg'}" alt="Image" class="img-fluid">                            
+                        </div>
+                        <h2 class="tm-pt-30 tm-color-primary tm-post-title" th:text=${blog.getTitle()}></h2>
+                    </a>                    
+                    <p class="tm-pt-30">
+                        There is a clickable image with beautiful hover effect and active title link for each post item. 
+                        Left side is a sticky menu bar. Right side is a blog content that will scroll up and down.
+                    </p>
+                    <div class="d-flex justify-content-between tm-pt-45">
+                        <span class="tm-color-primary" th:text="${blog.getAuthor().getFirstName()}+' ' +${blog.getAuthor().getLastName()}">ravel . Events</span>
+                        <span class="tm-color-primary" th:text="${#dates.format(blog.getCreationDate(), 'dd MMM yyyy')}"></span>
+                    </div>
+                    <hr>
+                </article>
+           </div>
+            <div class="row tm-row tm-mt-100 tm-mb-75">
+                <div class="tm-prev-next-wrapper">
+                    <a th:if="${currentPage != 0}" th:href="@{'/' + ${currentPage-1}}" class="mb-2 tm-btn tm-btn-primary tm-prev-next tm-mr-20">Prev</a>
+                    <a th:if="${currentPage+1 != totalPages}" th:href="@{'/' + ${currentPage+1}}" class="mb-2 tm-btn tm-btn-primary tm-prev-next">Next</a>
+                </div>
+                <div class="tm-paging-wrapper">
+                    <span class="d-inline-block mr-3">Page</span>
+                    <nav class="tm-paging-nav d-inline-block">
+                        <ul>
+                            <li th:classappend="${currentPage==i-1?'active':''}" th:each="i : ${#numbers.sequence(1, totalPages)}" class="tm-paging-item">
+                                <a th:href="@{'/' + ${i-1}}" class="mb-2 tm-btn tm-paging-link"><span th:text="${i}"></span></a>
+                            </li>                            
+                        </ul>
+                    </nav>
+                </div>                
+            </div>            
+            <footer th:replace="/fragments/head :: footer"></footer>
+        </main>
+    </div>
+    <script src="./static/js/jquery.min.js"></script>
+    <script src="./static/js/templatemo-script.js"></script>
+</body>
+</html>

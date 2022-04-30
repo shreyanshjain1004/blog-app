@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title th:text="${title}"></title>
+	<link rel="stylesheet" href="/fontawesome/css/all.min.css"> <!-- https://fontawesome.com/ -->
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/templatemo-xtra-blog.css}" rel="stylesheet">
+</head>
+<body>
+	<div th:fragment="sidebar" class="sidebar">
+		<a href="#" th:href="@{'/0'}" class="item"><i class="fas fa-home"></i> Home</a>
+		<a href="#" th:href="@{'/author/index'}" class="item"><i class="fas fa-user"></i> Dashboard</a>
+		<a href="#" th:href="@{'/author/view-blogs'}" class="item"><i class="fas fa-globe-asia"></i> View Blogs</a>
+		<a href="#" th:href="@{'/author/add-blog'}" class="item"><i class="fas fa-pencil-alt"></i> Add Blog</a>
+		<a href="#" class="item"><i class="fas fa-key"></i> Change Password</a>
+		<a href="#" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+	</div>
+        
+    <footer th:fragment="footer" class="row tm-row">
+       <div class="col-md-6 col-12 tm-color-gray">
+           Design: <a rel="nofollow" target="_parent" href="#" class="tm-external-link">Shreyansh Jain</a>
+       </div>
+       <div class="col-md-6 col-12 tm-color-gray tm-copyright">
+          Copyright &copy; 2022 Shreyansh Jain 
+       </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head('Login Page')"></head>
+
+<body>
+	<header th:replace="/fragments/head :: header"></header>
+	<div>
+		<main>
+			<div class="container">
+				<div class="row mt-5">
+					<div class="col-md-4 offset-md-6">
+						<div style="margin-top: 60%;" class="my-card">
+							<h1 class="text-center">Login</h1>
+				            <div class="login-form mt-5">
+				               <form id="Login-form" class="form" th:action="@{/dologin}" method="post">
+				                  <div th:if="${param.error}" class="alert alert-danger">
+				                  	 Invalid user name and password
+				                  </div>
+				                  
+				                  <div th:if="${param.logout}" class="alert alert-success">
+				                  	 You have been logged out
+				                  </div>
+				                  
+				                  <div class="form-group">
+				                     <label>User Name</label>
+				                     <input type="text" name="username" id="username" class="form-control" placeholder="User Name">
+				                  </div>
+				                  <div class="form-group">
+				                     <label>Password</label>
+				                     <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+				                  </div>
+				                  <button th:href="@{/signin}" type="submit" class="btn btn-dark">Login</button>
+				                  <a th:href="@{'/signup/'}" class="btn btn-secondary">Register</a>
+				               </form>
+				            </div>
+				        </div>
+				    </div>
+				 </div>
+	        </div>
+		</main>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/templatemo-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/fragments/head :: head('Error')"></head>
+<body>
+
+<div th:replace="/fragments/head :: header"></div>
+
+<div class="container-fluid">
+        <main class="tm-main">
+            <!-- Search form -->
+            <div class="row tm-row">
+                <div class="col-12">                    
+				    <div class="list-group">
+				    	<h1>Something went wrong!!</h1>
+				        <div style="color:red;"><h3 th:text="${error}">Status</h3></div>
+				        <div style="color:red;" th:text="'Status code: '+ ${status}"></div>
+				    </div>
+                </div>                
+            </div>      
+       </main>    
+</div>
+
+<footer th:replace="/fragments/head :: footer"></footer>
+
+</body>
+</html>

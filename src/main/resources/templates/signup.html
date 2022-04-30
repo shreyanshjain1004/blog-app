@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeLeaf.org">
+<head th:replace="/fragments/head :: head('Sign Up')"></head>
+
+<body>
+	<header th:replace="/fragments/head :: header"></header>
+    <div class="container-fluid">
+        <main class="tm-main">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 offset-md-2">
+						<div class="my-card">
+							
+							<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert" >
+								<p class="text-center" th:text="${session.message.content}"></p>
+								<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+							</div>
+							<h1 class="text-center">Register Here</h1>
+							<form novalidate th:action="@{/do_register}" method="post" th:object="${author}">
+								<div class="form-group">
+								    <label for="fname">First Name</label>
+								    <input name="firstName" type="text" th:classappend="${#fields.hasErrors('firstName')?'is-invalid':''}" class="form-control" id="fname" placeholder="Enter First Name" required="required" th:value="${author.firstName}">
+								    <div class="invalid-feedback" th:each="e : ${#fields.errors('firstName')}" th:text="${e}"></div>
+								</div>
+								<div class="form-group">
+								    <label for="lname">Last Name</label>
+								    <input name="lastName" type="text" th:classappend="${#fields.hasErrors('lastName')?'is-invalid':''}" class="form-control" id="lname" placeholder="Enter Last Name" required="required" th:value="${author.lastName}">
+								    <div class="invalid-feedback" th:each="e : ${#fields.errors('lastName')}" th:text="${e}"></div>
+								</div>
+								<div class="form-group">
+								    <label for="email">Email address</label>
+								    <input name="email" type="email" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" class="form-control" id="email" placeholder="Enter email" th:value="${author.email}">
+								    <div class="invalid-feedback" th:each="e : ${#fields.errors('email')}" th:text="${e}"></div>
+								</div>
+								<div class="form-group">
+								    <label for="password">Password</label>
+								    <input name="password" type="password" th:classappend="${#fields.hasErrors('password')?'is-invalid':''}" class="form-control" id="password" placeholder="Password" th:value="${author.password}">
+								    <div class="invalid-feedback" th:each="e : ${#fields.errors('password')}" th:text="${e}"></div>
+								</div>
+								<button type="submit" class="btn btn-primary">Submit</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+            <footer th:replace="/fragments/head :: footer"></footer>
+        </main>
+    </div>
+    <script src="./static/js/jquery.min.js"></script>
+    <script src="./static/js/templatemo-script.js"></script>
+</body>
+</html>
